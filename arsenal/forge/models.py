@@ -2,6 +2,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.utils.timezone import datetime, timedelta
 from django.db import models
+from tinymce.models import HTMLField
 import uuid
 
 User = get_user_model()
@@ -27,7 +28,7 @@ class Blacksmith(models.Model):
 
 class Armor(models.Model):
     title = models.CharField(_('title'), max_length=255)
-    summary = models.TextField(_('summary'))
+    summary = HTMLField(_('summary'))
     blacksmith = models.ForeignKey(
         Blacksmith, 
         on_delete=models.SET_NULL, 
@@ -129,7 +130,7 @@ class OrderLine(models.Model):
         on_delete=models.CASCADE, related_name="order_lines"
     )
     armor_type = models.ManyToManyField(ArmorType, verbose_name=_('armor type(s)'))
-    buyer_wishes =models.TextField(
+    buyer_wishes =HTMLField(
         _('buyer wishes'), 
         max_length=10000, blank=True, null=True, 
         help_text=_('Please, write all your wishes here')
