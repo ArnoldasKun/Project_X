@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from . models import ArmorType, Blacksmith, Armor
@@ -18,9 +19,12 @@ def index(request):
     return render(request, 'forge/index.html', context)
 
 def blacksmiths(request):
+    paginator = Paginator(Blacksmith.objects.all(), 3)
+    page_number = request.GET.get('page')
+    paged_blacksmiths = paginator.get_page(page_number)
     return render(
         request, 'forge/blacksmiths.html', 
-        {'blacksmiths': Blacksmith.objects.all()})
+        {'blacksmiths': paged_blacksmiths})
 
 def blacksmith(request, blacksmith_id):
     return render(
@@ -31,6 +35,7 @@ def blacksmith(request, blacksmith_id):
 
 class ArmorListView(ListView):
     model = Armor
+    paginate_by = 5
     template_name = 'forge/armor_list.html'
 
     def get_queryset(self):

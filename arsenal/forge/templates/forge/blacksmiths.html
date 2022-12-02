@@ -2,6 +2,17 @@
 {% block title %}Blacksmiths in {{ block.super }}{% endblock title %}
 {% block content %}
     <h1>Blacksmiths</h1>
+    <div class="paginator">
+        {% if blacksmiths.has_other_pages %}
+            {% for page_number in blacksmiths.paginator.page_range %}
+                {% if page_number == blacksmiths.number %}
+                    <span>{{ page_number }}</span>
+                {% else %}
+                    <a href="?page={{ page_number }}">{{ page_number }}</a>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
     <ul>
         {% for blacksmith in blacksmiths %}
             <li><a href="{% url 'blacksmith' blacksmith.id %}">{{ blacksmith.last_name }}, {{ blacksmith.first_name }}</a></li>

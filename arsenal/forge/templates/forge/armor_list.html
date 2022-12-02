@@ -4,6 +4,17 @@
     <h1>{{ armors_count }} 
         {% if armor_type %}{{ armor_type }}{% endif %}
         Armors</h1>
+    <div class="paginator">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&#11120;</a>
+            <a href="?page={{ page_obj.previous_page_number }}">&#129120;</a>
+        {% endif %}
+        {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">&#129122;</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">&#11122;</a>
+        {% endif %}
+    </div>
     <div class="armor_type_filter">
         <h3>Available Armor Types</h3>
         <ul>

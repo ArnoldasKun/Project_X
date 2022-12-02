@@ -3,8 +3,8 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('blacksmiths', views.blacksmiths, name='blacksmiths'),
-    path('blacksmith/<int:blacksmith_id', views.blacksmith, name='blacksmith'),
+    path('blacksmiths/', views.blacksmiths, name='blacksmiths'),
+    path('blacksmith/<int:pk>/', views.blacksmith, name='blacksmith'),
     path('armors/', views.ArmorListView.as_view(), name='armors'),
-    path('armor/<int:pk>/', views.ArmorDetailView.as_view(), name='armor')
+    path('armor/<int:pk>/', views.ArmorDetailView.as_view(), name='armor'),
 ]
