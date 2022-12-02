@@ -154,3 +154,23 @@ class OrderLine(models.Model):
     def __str__(self) -> str:
         return f"{self.armor} {self.quantity} {self.price}"
 
+
+class ArmorReview(models.Model):
+    buyer = models.ForeignKey(
+        get_user_model(), 
+        verbose_name=_('buyer'), on_delete=models.CASCADE, 
+        related_name='armor_reviews'
+    )
+    armor = models.ForeignKey(
+        Armor, 
+        verbose_name=_('armor'), on_delete=models.CASCADE, 
+        related_name='reviews'
+    )
+    created_at = models.DateTimeField(_('created_at'), auto_now_add=True)
+    content = models.TextField(_('content'), max_length=10000)
+
+    def __str__(self):
+        return f"{self.buyer} on {self.armor} at {self.created_at}"
+
+    class Meta:
+        ordering = ('-created_at', )
