@@ -2,7 +2,7 @@
 {% block title %}{{ object }}{% endblock title %}
 {% block content %}
     <h1>{{ object.title }}</h1>
-    <h3>by {{ object.blacksmith }}</h3>
+    <h3>by {{ object.blacksmith.link }}</h3>
     {% if object.armor_type %}
         <p>Armor types:
             {% for armor_type in object.armor_type.all %}

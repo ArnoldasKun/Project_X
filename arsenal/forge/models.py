@@ -1,6 +1,8 @@
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.utils.timezone import datetime, timedelta
+from django.utils.html import format_html
+from django.urls import reverse
 from django.db import models
 from tinymce.models import HTMLField
 import uuid
@@ -28,6 +30,10 @@ class Blacksmith(models.Model):
     def display_armors(self):
         return ', '.join(armor.title for armor in self.armors.all())
     display_armors.short_description = _('armors')
+
+    def link(self) -> str:
+        link = reverse('blacksmith', kwargs={'blacksmith_id':self.id})
+        return format_html('<a href="{link}">{blacksmith}</a>', link=link, author=self.__str__())
 
     class Meta:
         ordering = ['last_name', 'first_name']
