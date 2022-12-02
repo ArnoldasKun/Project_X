@@ -1,0 +1,10 @@
+{% extends 'forge/base.html' %}
+{% block title %}Armors in {{ block.super }}{% endblock title %}
+{% block content %}
+    <h1>{{ armors_count }} Armors</h1>
+    <ul>
+        {% for armor in armor_list %}
+            <li>{{ armor.title }} - {{ armor.blacksmith }}</li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

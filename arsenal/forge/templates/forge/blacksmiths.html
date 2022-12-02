@@ -4,7 +4,7 @@
     <h1>Blacksmiths</h1>
     <ul>
         {% for blacksmith in blacksmiths %}
-            <li>{{ blacksmith.last_name }}, {{ blacksmith.first_name }}</li>
+            <li><a href="{% url 'blacksmith' blacksmith.id %}">{{ blacksmith.last_name }}, {{ blacksmith.first_name }}</a></li>
         {% endfor %}
     </ul>
     {# blacksmiths #}
