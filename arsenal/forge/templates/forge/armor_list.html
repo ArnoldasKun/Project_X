@@ -4,7 +4,7 @@
     <h1>{{ armors_count }} Armors</h1>
     <ul>
         {% for armor in armor_list %}
-            <li>{{ armor.title }} - {{ armor.blacksmith }}</li>
+            <li><a href="{% url 'armor' armor.pk %}">{{ armor.title }}</a> - {{ armor.blacksmith }}</li>
         {% endfor %}
     </ul>
 {% endblock content %}

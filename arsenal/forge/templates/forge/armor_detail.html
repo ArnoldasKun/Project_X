@@ -1,0 +1,16 @@
+{% extends 'forge/base.html' %}
+{% block title %}{{ object }}{% endblock title %}
+{% block content %}
+    <h1>{{ object.title }}</h1>
+    <h3>by {{ object.blacksmith }}</h3>
+    {% if object.armor_type %}
+        <p>Armor types:
+            {% for armor_type in object.armor_type.all %}
+                <span class="armor_type">{{ armor_type }}</span>
+            {% endfor %}
+        </p>
+    {% endif %}
+    <div class="summary">
+        {{ object.summary }}
+    </div>
+{% endblock content %}

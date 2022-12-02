@@ -37,4 +37,9 @@ class ArmorListView(ListView):
         context = super().get_context_data(**kwargs)
         context['armors_count'] = self.get_queryset().count
         return context
+
+
+class ArmorDetailView(DetailView):
+    model = Armor
+    template_name = 'forge/armor_detail.html'
         
