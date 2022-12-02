@@ -9,10 +9,13 @@ User = get_user_model()
 
 
 class ArmorType(models.Model):
-    type = models.CharField(_('type'), max_length=200, help_text=_('Enter type of the armor'))
+    name = models.CharField(_('name'), max_length=200, help_text=_('Enter name of the armor'))
 
     def __str__(self) -> str:
-        return self.type
+        return self.name
+
+    class Meta:
+        ordering = ['name']
 
 
 class Blacksmith(models.Model):
@@ -21,6 +24,10 @@ class Blacksmith(models.Model):
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
+
+    def display_armors(self):
+        return ', '.join(armor.title for armor in self.armors.all())
+    display_armors.short_description = _('armors')
 
     class Meta:
         ordering = ['last_name', 'first_name']
@@ -38,7 +45,7 @@ class Armor(models.Model):
     armor_type = models.ManyToManyField(
         ArmorType,
         help_text=_('Choose armors from this blacksmith'),
-        verbose_name=_('armors')
+        verbose_name=_('armor(s)')
     )
     photo = models.ImageField(
         _('photo'), 
@@ -48,6 +55,10 @@ class Armor(models.Model):
 
     def __str__(self) -> str:
         return f"{self.title} {self.blacksmith}"
+
+    def display_armor_type(self) -> str:
+        return ', '.join(armor_type.name for armor_type in self.armor_type.all()[:5])
+    display_armor_type.short_description = _('type')
 
 
 class Buyer(models.Model):
