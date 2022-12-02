@@ -59,7 +59,11 @@ footer .container {
 
 .armor_type_filter {
     float: right;
-    background-color: #aac;
+    background-color: #abd;
+}
+
+.armor_type_filter .current {
+    background-color: #dbd;
 }
 
 ul {

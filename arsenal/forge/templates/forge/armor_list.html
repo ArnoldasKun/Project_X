@@ -8,7 +8,7 @@
         <h3>Available Armor Types</h3>
         <ul>
             {% for filter_armor_type in armor_types %}
-                li>{{ filter_armor_type.link_filtered_books }}</li>
+                <li class="{% if filter_armor_type == armor_type %}current{% endif %}">{{ filter_armor_type.link_filtered_armors }}</li>
             {% endfor %}
         </ul>
     </div>
