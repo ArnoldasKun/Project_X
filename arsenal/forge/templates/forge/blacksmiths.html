@@ -1,0 +1,11 @@
+{% extends 'forge/base.html' %}
+{% block title %}Blacksmiths in {{ block.super }}{% endblock title %}
+{% block content %}
+    <h1>Blacksmiths</h1>
+    <ul>
+        {% for blacksmith in blacksmiths %}
+            <li>{{ blacksmith.last_name }}, {{ blacksmith.first_name }}</li>
+        {% endfor %}
+    </ul>
+    {# blacksmiths #}
+{% endblock content %}

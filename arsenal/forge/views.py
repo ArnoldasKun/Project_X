@@ -16,3 +16,7 @@ def index(request):
 
     return render(request, 'forge/index.html', context)
 
+def blacksmiths(request):
+    return render(
+        request, 'forge/blacksmiths.html', 
+        {'blacksmiths': Blacksmith.objects.all()})
