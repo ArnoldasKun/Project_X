@@ -6,7 +6,7 @@
     {% if object.armor_type %}
         <p>Armor types:
             {% for armor_type in object.armor_type.all %}
-                <span class="armor_type">{{ armor_type }}</span>
+                {{ armor_type.link_filtered_armors }}
             {% endfor %}
         </p>
     {% endif %}

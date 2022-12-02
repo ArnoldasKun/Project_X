@@ -1,7 +1,17 @@
 {% extends 'forge/base.html' %}
 {% block title %}Armors in {{ block.super }}{% endblock title %}
 {% block content %}
-    <h1>{{ armors_count }} Armors</h1>
+    <h1>{{ armors_count }} 
+        {% if armor_type %}{{ armor_type }}{% endif %}
+        Armors</h1>
+    <div class="armor_type_filter">
+        <h3>Available Armor Types</h3>
+        <ul>
+            {% for filter_armor_type in armor_types %}
+                li>{{ filter_armor_type.link_filtered_books }}</li>
+            {% endfor %}
+        </ul>
+    </div>
     <ul>
         {% for armor in armor_list %}
             <li><a href="{% url 'armor' armor.pk %}">{{ armor.title }}</a> - {{ armor.blacksmith.link }}</li>

@@ -33,9 +33,20 @@ class ArmorListView(ListView):
     model = Armor
     template_name = 'forge/armor_list.html'
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        armor_type_id = self.request.GET.get('armor_type_id')
+        if armor_type_id:
+            queryset = queryset.filter(armor_type__id=armor_type_id)
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['armors_count'] = self.get_queryset().count
+        armor_type_id = self.request.GET.get('armor_type_id')
+        context['armor_types'] = ArmorType.objects.all()
+        if armor_type_id:
+            context['armor_type'] = get_object_or_404(ArmorType, id=armor_type_id)
         return context
 
 

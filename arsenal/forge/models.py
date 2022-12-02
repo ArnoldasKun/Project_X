@@ -16,6 +16,10 @@ class ArmorType(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    def link_filtered_armors(self):
+        link = reverse('blacksmiths')+'?armor_type_id='+str(self.id)
+        return format_html('<a class="armor_type" href="{link}">{name}</a>', link=link, name=self.name)
+
     class Meta:
         ordering = ['name']
 
