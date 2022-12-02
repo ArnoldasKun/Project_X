@@ -1,5 +1,18 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from . models import ArmorType, Blacksmith, Armor
 
 def index(request):
-    return HttpResponse("Welcome to gnomes blacksmiths!")
+    armor_count = Armor.objects.count()
+    blacksmith_count = Blacksmith.objects.count()
+    visits_count = request.session.get('visits_count', 1)
+    request.session['visits_count'] = visits_count+1
+
+    context = {
+        'armor_count': armor_count,
+        'blacksmith_count': blacksmith_count,
+        'armor_type_count': ArmorType.objects.count(),
+        'visits_count': visits_count,
+    }
+
+    return render(request, 'forge/index.html', context)
+
