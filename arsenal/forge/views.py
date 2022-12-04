@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from . models import ArmorType, Blacksmith, Armor
@@ -29,7 +30,7 @@ def blacksmiths(request):
 def blacksmith(request, blacksmith_id):
     return render(
         request, 'forge/blacksmith.html', 
-        {'blacksmiths': get_object_or_404(Blacksmith, id=blacksmith_id)}
+        {'blacksmith': get_object_or_404(Blacksmith, id=blacksmith_id)}
     )
 
 
@@ -40,6 +41,9 @@ class ArmorListView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        #search = self.request.GET.get('search')
+        #if search:
+            #queryset = queryset.filter(Q(title__icontains=search) | Q(summary__icontains=search))
         armor_type_id = self.request.GET.get('armor_type_id')
         if armor_type_id:
             queryset = queryset.filter(armor_type__id=armor_type_id)
@@ -47,7 +51,7 @@ class ArmorListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['armors_count'] = self.get_queryset().count
+        context['armors_count'] = self.get_queryset().count()
         armor_type_id = self.request.GET.get('armor_type_id')
         context['armor_types'] = ArmorType.objects.all()
         if armor_type_id:
