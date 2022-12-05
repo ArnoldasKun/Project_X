@@ -131,3 +131,7 @@ ul.armor_list li.armor img {
 ul.armor_list li.armor h3 {
     margin-top: 0;
 }
+
+table {
+    margin: 0.5rem 1rem;
+}
