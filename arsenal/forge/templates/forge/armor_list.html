@@ -1,4 +1,5 @@
 {% extends 'forge/base.html' %}
+{% load static %}
 {% block title %}Armors in {{ block.super }}{% endblock title %}
 {% block content %}
     <h1>{{ armors_count }} 
@@ -14,6 +15,10 @@
             <a href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}page={{ page_obj.next_page_number }}">&#129122;</a>
             <a href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}page={{ page_obj.paginator.num_pages }}">&#11122;</a>
         {% endif %}
+        <form action="{% url 'armors' %}" method="get">
+            <input type="text" name="search" value="{{ request.GET.search }}">
+            <button type="submit">search</button>
+        </form>
     </div>
     <div class="armor_type_filter">
         <h3>Available Armor Types</h3>
@@ -23,9 +28,19 @@
             {% endfor %}
         </ul>
     </div>
-    <ul>
+    <ul class="armor_list">
         {% for armor in armor_list %}
-            <li><a href="{% url 'armor' armor.pk %}">{{ armor.title }}</a> - {{ armor.blacksmith.link }}</li>
+        <li class="armor">
+            <a href="{% url 'armor' armor.pk %}">
+                {% if armor.photo %}
+                    <img src="{{ armor.photo.url }}">
+                {% else %}
+                    <img src="{% static 'forge/photo/tuscia.png' %}">
+                {% endif %}
+                <h3>{{ armor.title }}</h3>
+            </a>
+            <p>by {{ armor.blacksmith.link }}</p>
+        </li>
         {% endfor %}
     </ul>
 {% endblock content %}

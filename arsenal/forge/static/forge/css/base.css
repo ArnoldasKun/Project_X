@@ -109,3 +109,25 @@ ul li:hover {
 .paginator form {
     display: inline-block;
 }
+
+ul.book_list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+ul.armor_list li.armor {
+    flex-basis: 15rem;
+    border: 1px solid #999;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 0;
+}
+
+ul.armor_list li.armor img {
+    max-width: 100%;
+}
+
+ul.armor_list li.armor h3 {
+    margin-top: 0;
+}
