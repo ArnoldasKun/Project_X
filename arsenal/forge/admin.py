@@ -19,6 +19,10 @@ class OrderLineAdmin(admin.ModelAdmin):
     )
 
 
+class ArmorOrderAdmin(admin.ModelAdmin):
+    search_fields = ('unique_id', 'book__title', 'book__author__last_name__exact', 'buyer__last_name')
+
+
 class ArmorAdmin(admin.ModelAdmin):
     list_display = ('title', 'blacksmith')
     inlines = (OrderLineInline, )
@@ -36,6 +40,6 @@ admin.site.register(models.ArmorType)
 admin.site.register(models.Blacksmith, BlacksmithAdmin)
 admin.site.register(models.Armor, ArmorAdmin)
 admin.site.register(models.Buyer)
-admin.site.register(models.ArmorOrder)
+admin.site.register(models.ArmorOrder, ArmorOrderAdmin)
 admin.site.register(models.OrderLine, OrderLineAdmin)
 admin.site.register(models.ArmorReview, ArmorReviewAdmin)

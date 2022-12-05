@@ -1,0 +1,15 @@
+{% extends 'forge/base.html' %}
+{% block title %}My Armors in {{ block.super }}{% endblock title %}
+{% block content %}
+<h1>My Armors</h1>
+<div class="table-grid my-books-table">
+    <div class="table-grid-cell center dark">Blacksmith - Armor</div>
+    <div class="table-grid-cell center dark">Due Date</div>
+    <div class="table-grid-cell center dark">Status</div>
+    {% for armor_order in armororder_list %}
+        <div class="table-grid-cell">{{ armor_order.armor }}</div>
+        <div class="table-grid-cell center{% if armor_order.is_overdue %} overdue{% endif %}">{{ armor_order.due_back }}</div>
+        <div class="table-grid-cell center{% if armor_order.is_overdue %} overdue{% endif %}">{{ armor_order.get_status_display }}</div>
+    {% endfor %}
+</div>
+{% endblock content %}

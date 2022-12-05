@@ -3,7 +3,8 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
-from . models import ArmorType, Blacksmith, Armor
+from . models import ArmorType, Blacksmith, Armor, ArmorOrder
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def index(request):
     armor_count = Armor.objects.count()
@@ -63,4 +64,15 @@ class ArmorListView(ListView):
 class ArmorDetailView(FormMixin, DetailView):
     model = Armor
     template_name = 'forge/armor_detail.html'
+
+
+class UserArmorListView(LoginRequiredMixin, ListView):
+    model = ArmorOrder
+    template_name = 'forge/user_armor_list.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(reader=self.request.user).order_by('due_back')
+        return queryset
         
