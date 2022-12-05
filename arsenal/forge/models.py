@@ -99,7 +99,9 @@ class ArmorOrder(models.Model):
     buyer = models.ForeignKey(
         Buyer, 
         verbose_name=_('buyer'), 
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null=True, blank=True,
+        related_name='taken_armors'
     )
     date =models.DateField(_('order date'), auto_now_add=True)
     due_date = models.DateField(_('due_date'))
