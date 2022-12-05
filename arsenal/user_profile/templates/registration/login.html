@@ -1,13 +1,13 @@
-{% extends 'library/base.html' %}
+{% extends 'forge/base.html' %}
 {% block title %}Login to {{ block.super }}{% endblock title %}
 {% block content %}
 <h1>Login to Forge</h1>
 {% if form.errors %}
-    <p>Login error, please try again.</p>
+    <p class="form-error">Login error, please try again.</p>
 {% endif %}
 {% if next %}
     {% if user.is_authenticated %}
-        <p>Permission error. You need a permission to see this page.</p>
+        <p class="form-error">Permission error. You need a permission to see this page.</p>
     {% endif %}
 {% endif %}
 <form method="post" action="{% url 'login' %}">
