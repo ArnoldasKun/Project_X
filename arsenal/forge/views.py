@@ -41,9 +41,9 @@ class ArmorListView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        #search = self.request.GET.get('search')
-        #if search:
-            #queryset = queryset.filter(Q(title__icontains=search) | Q(summary__icontains=search))
+        search = self.request.GET.get('search')
+        if search:
+            queryset = queryset.filter(Q(title__icontains=search) | Q(summary__icontains=search))
         armor_type_id = self.request.GET.get('armor_type_id')
         if armor_type_id:
             queryset = queryset.filter(armor_type__id=armor_type_id)
