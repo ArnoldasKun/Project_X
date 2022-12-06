@@ -14,6 +14,16 @@
         {{ object.summary }}
     </div>
     <h2>Reviews</h2>
+    {% if user.is_authenticated %}
+        <div class="review-form">
+            <p>If you enjoyed this piece of armor, please leave a review.</p>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <p><button type="submit">Post Review</button></p>
+            </form>
+        </div>
+    {% endif %}
     {% if armor.reviews %}
         {% for review in armor.reviews.all %}
             <div class="armor-review">

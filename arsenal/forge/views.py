@@ -5,6 +5,9 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
 from . models import ArmorType, Blacksmith, Armor, ArmorOrder
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
+from django.urls import reverse
+from . forms import ArmorReviewForm
 
 def index(request):
     armor_count = Armor.objects.count()
@@ -64,6 +67,32 @@ class ArmorListView(ListView):
 class ArmorDetailView(FormMixin, DetailView):
     model = Armor
     template_name = 'forge/armor_detail.html'
+    form_class = ArmorReviewForm
+
+    def get_success_url(self):
+        return reverse('armor', kwargs={'pk': self.get_object().id})
+
+    def post(self, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            messages.error(self.request, "You're posting too much!")
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        form.instance.armor = self.get_object()
+        form.instance.buyer = self.request.user
+        form.save()
+        messages.success(self.request, 'Your review has been posted!')
+        return super().form_valid(form)
+
+    def get_initial(self):
+        return {
+            'armor': self.get_object(),
+            'buyer': self.request.user,
+        }
 
 
 class UserArmorListView(LoginRequiredMixin, ListView):
