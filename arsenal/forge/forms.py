@@ -9,7 +9,7 @@ class ArmorReviewForm(forms.ModelForm):
             buyer = self.cleaned_data.get("buyer")
             recent_posts = ArmorReview.objects.filter(
                 buyer=buyer, 
-                created_at__gte=(datetime.now()-timedelta(hours=1))
+                created_at__gte=(datetime.utcnow()-timedelta(hours=1))
             )
             if recent_posts:
                 return False

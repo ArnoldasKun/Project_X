@@ -102,6 +102,6 @@ class UserArmorListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        queryset = queryset.filter(reader=self.request.user).order_by('due_back')
+        queryset = queryset.filter(buyer=self.request.user).order_by('due_back')
         return queryset
         

@@ -20,7 +20,7 @@ class OrderLineAdmin(admin.ModelAdmin):
 
 
 class ArmorOrderAdmin(admin.ModelAdmin):
-    search_fields = ('unique_id', 'book__title', 'book__author__last_name__exact', 'buyer__last_name')
+    search_fields = ('unique_id', 'armor__title', 'armor__blacksmith__last_name__exact', 'buyer__last_name')
 
 
 class ArmorAdmin(admin.ModelAdmin):
